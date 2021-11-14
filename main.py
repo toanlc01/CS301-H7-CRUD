@@ -89,11 +89,18 @@ def updateMovie(tt):
             movie = curs.fetchone()
 
             # Update movie id
-            if movie and newMovieId != tt :
-                curs.execute("SELECT * FROM movie WHERE tt = %s;", [tt])
-                movie = curs.fetchone()
-                flash("The movie id already exists in the DB")
-                return render_template("update-movie.html", movie=movie)
+            if newMovieId != tt :
+                if movie:
+                    curs.execute("SELECT * FROM movie WHERE tt = %s;", [tt])
+                    movie = curs.fetchone()
+                    flash("The movie id already exists in the DB")
+                    return render_template("update-movie.html", movie=movie)
+                else:
+                    curs.execute("SELECT * FROM movie WHERE tt = %s;", [tt])
+                    movie = curs.fetchone()
+                    curs.execute('INSERT INTO movie (tt, title, `release`, director, addedBy) VALUES (%s, %s, %s, %s, %s);',[newMovieId, str(movie[1]), str(movie[2]), movie[3], movie[4]])
+                    curs.execute("DELETE FROM movie WHERE tt=%s", [tt])
+                    conn.commit()
 
             # Update movie title
             newTitle = request.form["title"]
