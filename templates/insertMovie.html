@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+Insert Movies
+{% endblock %}
+
+{% block content %}
+
+
+<h1>Insert a movie</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+<form action="{{ url_for('insertMovie') }}" method="POST">
+    <label for="movieID">Movie ID/TT: </label>
+    <input type="text" name="movieID">
+    <br>
+    <label for="movieTitle">Movie Title: </label>
+    <input type="text" name="movieTitle">
+    <br>
+    <label for="movieReleaseYear">Movie Release Year: </label>
+    <input type="text" name="movieReleaseYear">
+    <br>
+    <input type="submit" value="submit">
+</form>
+
+
+{% endblock %}

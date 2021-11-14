@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %} Update movie {% endblock %}
+
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<h1>Update a movie</h1>
+
+<form action="{{ url_for('updateMovie', tt=movie[0]) }}" method="POST">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" value="{{movie[1]}}">
+    <br>
+
+    <label for="movieId">Movie id</label>
+    <input type="text" name="movieId" id="movieId" value="{{movie[0]}}">
+
+    <br>
+    <label for="releaseYear">Release year</label>
+    <input type="text" name="releaseYear" id="releaseYear" value="{{movie[2]}}">
+
+    <br>
+    <label for="addedBy">Added by</label>
+    <input type="text" name="addedBy" id="addedBy" value="{{movie[4]}}">
+
+    <br>
+    <label for="directorId">Director ID</label>
+    <input type="text" name="directorId" id="directorId" value="{{movie[3]}}">
+
+    <br>
+    <input type="submit" name="update" value="update">
+    <input type="submit" name="delete" value="delete">
+    
+</form>
+
+{% endblock %}

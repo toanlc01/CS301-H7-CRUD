@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} Incomplete Movies {% endblock %}
+
+{% block content %}
+<h1>Select Movie</h1>
+<label for="movies">Movies without release dates or directors:</label>
+    
+    <form action="{{ url_for('getTT') }}" method="GET">
+
+        <select name="movie" id="movie">
+            {% for movie in movies %}
+                <option value="{{movie[0]}}">{{movie[1]}}</option>
+            {% endfor %}
+            <br>
+            <input type="submit" value="Choose">
+        </select>
+    
+    </form>
+    
+{% endblock %}
